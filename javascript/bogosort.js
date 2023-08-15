@@ -1,13 +1,13 @@
 
 BogoSort(GenerateRandomArray(8), 100);
 
-function BogoSort(array, printIterationEvery) {
+function BogoSort(array, printIterationsEvery) {
     var iteration = 0;
     PrintIteration(array);
     while (!IsSorted(array)) {
         iteration++;
         array = Shuffle(array);
-        if (iteration % printIterationEvery == 0) { 
+        if (iteration % printIterationsEvery == 0) { 
             PrintIteration(array, iteration);
         }
     }
