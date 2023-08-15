@@ -3,7 +3,7 @@ BogoSort is an algorithm used to sort the elements of an array by randomly gener
 
 - [x] BogoSort implementation in C#
 - [x] BogoSort implementation in Python
-- [ ] BogoSort implementation in Java
+- [x] BogoSort implementation in Java
 - [ ] BogoSort implementation in JavaScript
 - [ ] BogoSort implementation in TypeScript
 - [ ] BogoSort implementation in Dart
