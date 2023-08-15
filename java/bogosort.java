@@ -1,4 +1,7 @@
 public static class Program {
+    public static void main(String[] args) {
+        bogoSort(generateRandomArray(8), 100);
+    }
     static void bogoSort(int[] array, int printIterationsEvery) {
         int iteration = 0;
         printIteration(array, iteration);
@@ -40,8 +43,5 @@ public static class Program {
             if (i != array.length - 1) arrayText += ", ";
         }
         System.out.println(String.format("%d, [%s]", iteration, arrayText));
-    }
-    public static void main(String[] args) {
-        bogoSort(generateRandomArray(8), 100);
     }
 }
