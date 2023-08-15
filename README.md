@@ -1,6 +1,15 @@
 # BogoSort
 BogoSort is an algorithm used to sort the elements of an array by randomly generating different permutations of an array and then checking whether it is sorted or not. This repository aims to perform this task in all the programming languages that I have learned.
 
+- [x] BogoSort implementation in C#
+- [x] BogoSort implementation in Python
+- [ ] BogoSort implementation in Java
+- [ ] BogoSort implementation in JavaScript
+- [ ] BogoSort implementation in TypeScript
+- [ ] BogoSort implementation in Dart
+- [ ] BogoSort implementation in C++
+- [ ] BogoSort implementation in Rust
+
 All versions of the BogoSort algorithm will be done following the pseudocode:
 
 ```ruby
