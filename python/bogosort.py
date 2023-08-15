@@ -14,13 +14,13 @@ def isSorted(list):
             return False
     return True
 
-def bogosort(list, printIterationEvery: int):
+def bogosort(list, printIterationsEvery: int):
     iterations: int = 0
     printIteration(list, iterations)
     while not isSorted(list):
         shuffle(list)
         iterations += 1
-        if iterations % printIterationEvery == 0:
+        if iterations % printIterationsEvery == 0:
             printIteration(list, iterations)
     print("Result:")
     printIteration(list, iterations)
