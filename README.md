@@ -5,7 +5,7 @@ BogoSort is an algorithm used to sort the elements of an array by randomly gener
 - [x] BogoSort implementation in Python
 - [x] BogoSort implementation in Java
 - [x] BogoSort implementation in JavaScript
-- [ ] BogoSort implementation in Dart
+- [x] BogoSort implementation in Dart
 - [ ] BogoSort implementation in C++
 - [ ] BogoSort implementation in Rust
 - [ ] BogoSort implementation in mcfunction
