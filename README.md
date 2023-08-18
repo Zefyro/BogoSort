@@ -20,4 +20,4 @@ BogoSort (array: GenerateRandomArray (8)):
     end
 ```
 
-[^1]: (jmc/README.md)[https://github.com/Zefyro/BogoSort/blob/main/jmc/README.md]
+[^1]: https://github.com/Zefyro/BogoSort/blob/main/jmc/README.md
