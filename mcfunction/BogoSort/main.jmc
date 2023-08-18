@@ -1,0 +1,156 @@
+function __start__() {
+    JMC.put("schedule function bogosort:bogosort 5t");
+}
+
+function bogoSort() {
+    $sorting = true;
+    $running = true;
+    $iteration = 0;
+    BogoSort.generateRandomArray();
+    BogoSort.printIteration();
+    BogoSort.asyncWhile();
+}
+
+class BogoSort {
+    function asyncWhile() {
+        $iteration++;
+        BogoSort.shuffle(); // shuffle WIP
+        $iterations = $iteration;
+        $iterations %= PRINTITERATIONSEVERY;
+        if ($iterations == 0) { 
+            BogoSort.printIteration(); 
+        }
+        execute store result score $running __variable__ run BogoSort.isSorted();
+        $temp = $iteration;
+        $temp %= ITERATIONSPERTICK;
+        if (!$running && ($temp != 0)) {
+            BogoSort.asyncWhile();
+        } else if (!$running) {
+            JMC.put("schedule function bogosort:bogosort/asyncwhile 1t");
+        } else {
+            modifyStorage(array, sorted) set from storage bogosort:array sorting;
+            modifyStorage(array, value) set from storage bogosort:array sorted;
+            JMC.put("schedule function bogosort:bogosort/complete 1t");
+        }
+    }
+
+    function shuffle() {
+        modifyStorage(array, sorted) set value [];
+        modifyStorage(array, sorting) set value [];
+        modifyStorage(array, sorting) set from storage bogosort:array value;
+        Hardcode.repeat(
+            "index", // indexString
+            () => { // arrowFunction
+                if (predicate bogosort:chance) {
+                    if (predicate bogosort:chance) {
+                        modifyStorage(array, sorted) append from storage bogosort:array sorting[index];
+                    } else if (predicate bogosort:chance) {
+                        modifyStorage(array, sorted) prepend from storage bogosort:array sorting[index];
+                    } else {
+                        modifyStorage(array, sorted) insert index from storage bogosort:array sorting[index];
+                    }
+                } else {
+                    if (predicate bogosort:chance) {
+                        modifyStorage(array, sorted) prepend from storage bogosort:array sorting[index];
+                    } else {
+                        modifyStorage(array, sorted) append from storage bogosort:array sorting[index];
+                    }
+                }
+            },
+            0, // start
+            LENGTH, // stop
+            1 // step
+        );
+        modifyStorage(array, value) set from storage bogosort:array sorted;
+    }
+
+// Actually fast sorting algorithm.
+//    function sort() {
+//        $sorted = false;
+//        modifyStorage(array, sorted) set value [];
+//        modifyStorage(array, sorting) set value [];
+//        modifyStorage(array, sorting) set from storage bogosort:array value;
+//        while (!$sorted) {
+//            $prev = -999;
+//            // Reset the array
+//            data modify storage bogosort:array sorted set value [];
+//            Hardcode.repeat(
+//                "index", // indexString
+//                () => { // arrowFunction
+//                    // Get current value
+//                    execute store result score $temp __variable__ run data get storage bogosort:array sorting[index];
+//                    if ($prev <= $temp) {
+//                        // Leave greater or equal values where they are
+//                        modifyStorage(array, sorted) insert index from storage bogosort:array sorting[index];
+//                    } else if ($prev > $temp) {
+//                        // Move smaller value to the front of the array
+//                        modifyStorage(array, sorted) prepend from storage bogosort:array sorting[index];
+//                    }
+//                    $prev = $temp;
+//                },
+//                0, // start
+//                LENGTH, // stop
+//                1 // step
+//            );
+//            modifyStorage(array, sorting) set from storage bogosort:array sorted;
+//            execute store result score $sorted __variable__ run BogoSort.isSorted();
+//        }
+//        modifyStorage(array, value) set from storage bogosort:array sorted;
+//    }
+
+    function isSorted() {
+        $prev = -999;
+        Hardcode.repeat(
+            "index", // indexString
+            () => { // arrowFunction
+                execute store result score $temp __variable__ run data get storage bogosort:array sorting[index];
+                if ($prev > $temp) {
+                    return 0;
+                }
+                $prev = $temp;
+            },
+            0, // start
+            LENGTH, // stop
+            1 // step
+        );
+        return 1;
+    }
+
+    function complete() {
+        tellraw @a[tag=bogosort] "Result:";
+        BogoSort.printIteration();
+    }
+
+    function generateRandomArray() {
+        modifyStorage(array, value) set value [];
+        for ($i = 0; $i < LENGTH; $i++) {
+            $bogosort_random = Math.random(0, 200);
+            $bogosort_random -= 100;
+            execute store result storage bogosort:array single int 1 run scoreboard players get $bogosort_random __variable__;
+            modifyStorage(array, value) append from storage bogosort:array single;
+        }
+    }
+
+    function printIteration() {
+        tellraw @a[tag=bogosort] [
+            {
+                "score": {
+                    "objective": "__variable__", 
+                    "name": "$iteration"
+                },
+                "color": "gray"
+            },
+            ", ",
+            {
+                "storage": "bogosort:array",
+                "nbt": "value",
+                "color": "gray"
+            }
+        ];
+    }
+}
+
+new predicates(chance) {
+    "condition": "minecraft:random_chance",
+    "chance": 0.5
+}

@@ -1,0 +1,13 @@
+// Configuration
+#define LENGTH 8
+#define PRINTITERATIONSEVERY 100
+#define ITERATIONSPERTICK 10
+
+// Macros
+#define modifyStorage(_storage_, _path_) data modify storage bogosort:_storage_ _path_
+
+// Credits
+#credit "This datapack was made by Zefyro"
+#credit "It's part of a project https://github.com/Zefyro/BogoSort"
+#credit ""
+#credit "Trying to see how much is possible with minecraft datapacks"
