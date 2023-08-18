@@ -1,4 +1,4 @@
-# BogoSort in mcfunction
+# BogoSort in JMC
 
 This is a minecraft datapack made with [JMC](https://github.com/WingedSeal/jmc)
 
