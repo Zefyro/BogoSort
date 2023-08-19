@@ -9,7 +9,7 @@ BogoSort is an algorithm used to sort the elements of an array by randomly gener
 - [x] BogoSort implementation in C++
 - [x] BogoSort implementation in [JMC](https://github.com/WingedSeal/jmc) [^1]
 - [x] BogoSort implementation in SQF
-- [ ] BogoSort implementation in Rust
+- [x] BogoSort implementation in Rust
 
 All versions of the BogoSort algorithm will be done following the pseudocode:
 
