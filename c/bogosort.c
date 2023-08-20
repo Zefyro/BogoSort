@@ -50,6 +50,7 @@ void bogosort(int length, int printIterationsEvery) {
     }
     printf("Result:\n");
     printIteration(array, &length, &iteration);
+    free(array);
 }
 
 int main()

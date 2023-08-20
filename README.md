@@ -4,12 +4,12 @@ BogoSort is an algorithm used to sort the elements of an array by randomly gener
 - [x] BogoSort implementation in C
 - [x] BogoSort implementation in C++
 - [x] BogoSort implementation in C#
-- [x] BogoSort implementation in Rust
-- [x] BogoSort implementation in Java
 - [x] BogoSort implementation in Dart
-- [x] BogoSort implementation in Python
+- [x] BogoSort implementation in Java
 - [x] BogoSort implementation in JavaScript
 - [x] BogoSort implementation in [JMC](https://github.com/WingedSeal/jmc) [^1]
+- [x] BogoSort implementation in Python
+- [x] BogoSort implementation in Rust
 - [x] BogoSort implementation in SQF
 
 All versions of the BogoSort algorithm will be done following the pseudocode:
