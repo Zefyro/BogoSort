@@ -1,60 +1,69 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <time.h>
+#include <algorithm>
+#include <array>
+#include <iostream>
+#include <ctime>
 
-void printIteration(int* array, int* length, int* iteration) {
-    printf("%d, [", *iteration);
-    for (int i = 0; i < *length; i++) {
-        printf("%d", array[i]);
-        if (i + 1 < *length) printf(", ");
+template<template<class, size_t> class Array, class Element, size_t Length>
+void printIteration(const Array<Element, Length>& array, size_t iteration) {
+    using namespace std;
+
+    cout << iteration << ", [";
+    for (int i = 0; i < array.size(); i++) {
+        cout << array[i];
+        if (i + 1 < array.size()) printf(", ");
     }
-    printf("]\n");
+    cout << "]\n";
 }
 
-int* generateRandomArray(int length) {
+template<class Element, size_t Length>
+std::array<Element, Length> generateRandomArray() {
+    constexpr int MaxNum = 100, MinNum = -100;
+    
     srand (time(NULL));
-    int* array = new int[length];
-    for (int i = 0; i < length; i++) {
-        array[i] = rand() % 200 - 100;
+
+    std::array<Element, Length> array;
+    for (auto& i : array) {
+        i = (rand() % (MaxNum - MinNum + 1)) + MinNum;
     }
+
     return array;
 }
 
-bool isSorted(int* array, int* length) {
-    for (int i = 1; i < *length; i++) {
+template<template<class, size_t> class Array, class Element, size_t Length>
+bool isSorted(const Array<Element, Length>& array) {
+    for (int i = 1; i < array.size(); i++) {
         if (array[i - 1] > array[i]) 
             return false;
     }
     return true;
 }
 
-int* shuffle(int* array, int* length) {
-    for (int i = 0; i < *length; i++) {
-        int j = rand() % *length;
-        int temp = array[i];
-        array[i] = array[j];
-        array[j] = temp;
+template<template<class, size_t> class Array, class Element, size_t Length>
+void shuffle(Array<Element, Length>& array) {
+    for (auto& i : array) {
+        size_t j = rand() % array.size();
+        std::swap(i, array[j]);
     }
-    return array;
 }
 
-void bogosort(int length, int printIterationsEvery) {
-    int* array = generateRandomArray(length);
-    int iteration = 0;
-    printIteration(array, &length, &iteration);
-    while (!isSorted(array, &length)) {
+template<class Element, size_t Length, size_t PrintIterationEvery>
+void bogosort() {
+    auto array = generateRandomArray<Element, Length>();
+    size_t iteration = 0;
+    printIteration(array, iteration);
+    while (!isSorted(array)) {
         iteration++;
-        array = shuffle(array, &length);
-        if (iteration % printIterationsEvery == 0)
-            printIteration(array, &length, &iteration);
+        shuffle(array);
+        if (iteration % PrintIterationEvery == 0)
+            printIteration(array, iteration);
     }
     printf("Result:\n");
-    printIteration(array, &length, &iteration);
-    delete[] array;
+    printIteration(array, iteration);
 }
 
-int main()
-{
-    bogosort(8, 100);
+int main() {
+    constexpr size_t DesiredLength = 8;
+    constexpr size_t PrintIterationEvery = 100;
+    bogosort<int, DesiredLength, PrintIterationEvery>();
     return 0;
 }
